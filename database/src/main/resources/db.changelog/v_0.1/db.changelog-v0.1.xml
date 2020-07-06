@@ -21,8 +21,23 @@
         </rollback>
     </changeSet>
 
-
     <changeSet id="2" author="mikhail">
+        <sqlFile dbms="postgresql"
+                 path="01-create_product_category_tables.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>
+            <sqlFile dbms="postgresql"
+                     path="01-drop_product_category_tables.sql"
+                     relativeToChangelogFile="true"
+                     splitStatements="true"
+                     stripComments="true"/>
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="3" author="mikhail">
         <sqlFile dbms="postgresql"
                  path="01-insert_default_user_role.sql"
                  relativeToChangelogFile="true"
