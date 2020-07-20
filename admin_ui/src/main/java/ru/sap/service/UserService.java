@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
-    void saveUser(User user);
+    void saveUser(User user, boolean isUpdate);
 
     List<User> findAll();
 

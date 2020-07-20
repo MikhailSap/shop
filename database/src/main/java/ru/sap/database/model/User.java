@@ -1,15 +1,14 @@
 package ru.sap.database.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
+@EqualsAndHashCode
+@Getter
+@Setter
 @Table(name = "usrs")
 public class User {
     @Id

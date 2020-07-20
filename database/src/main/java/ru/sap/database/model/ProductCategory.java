@@ -1,12 +1,17 @@
 package ru.sap.database.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
+@EqualsAndHashCode
+@Getter
+@Setter
 @Table(name = "categories")
 public class ProductCategory {
     @Id

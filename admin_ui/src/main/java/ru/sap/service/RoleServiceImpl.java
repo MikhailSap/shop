@@ -18,6 +18,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public Role findRoleById(Long id) {
+        return roleRepo.findById(id).get();
+    }
+
+    @Override
     public List<Role> findAll() {
         return roleRepo.findAll();
     }
@@ -25,5 +30,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void save(Role role) {
         roleRepo.save(role);
+    }
+
+    @Override
+    public void deleteRoleById(Long id) {
+        roleRepo.delete(findRoleById(id));
     }
 }

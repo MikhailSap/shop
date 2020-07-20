@@ -30,8 +30,10 @@ public class UserSeviceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public void saveUser(User user, boolean isUpdate) {
+        if (!isUpdate) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         userRepo.save(user);
     }
 
@@ -47,7 +49,7 @@ public class UserSeviceImpl implements UserService {
 
     public void updateUser(User user) throws NoSuchUserException {
         findUserById(user.getId()).orElseThrow(NoSuchUserException::new);
-        saveUser(user);
+        saveUser(user, true);
     }
 
     @Override
