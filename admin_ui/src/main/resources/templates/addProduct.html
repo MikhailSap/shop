@@ -1,0 +1,75 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Creat Product</title>
+    <th:block th:replace="fragments :: head"></th:block>
+</head>
+<body class="bg-light">
+
+<nav th:replace="fragments :: nav">
+</nav>
+
+<div class="d-flex">
+
+    <div th:replace="fragments :: sidebar"></div>
+
+    <div class="content p-4">
+        <h2 class="mb-4">Add Product</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <form th:action="@{/addProduct}" th:object="${productDTO}" method="post" enctype="multipart/form-data">
+                    <input th:type="hidden" th:field="*{id}">
+                    <div class="form-group">
+                        <label for="name">Product name</label>
+                        <input type="text" th:field="*{name}" name="name" id="name" class="form-control"  placeholder="Enter product's name">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" th:field="*{description}" name="description" id="description" class="form-control"  placeholder="Enter description">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text" th:field="*{price}" name="price" id="price" class="form-control"  placeholder="Enter price">
+                    </div>
+                    <div class="form-group">
+                        <div th:each="category : ${categories}">
+                            <input type="checkbox" th:id="${category.id}" th:value="${category.id}" th:field="*{categories}"/>
+                            <label th:for="${category.id}" th:text="${category.name}"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div th:each="productCategory : ${productDTO.categories}">
+                            <input type="checkbox" th:id="${productCategory.id}" th:value="${productCategory.id}" th:field="*{categories}"/>
+                            <label th:for="${productCategory.id}" th:text="${productCategory.name}"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pictures">Product picture</label>
+                        <input type="file" th:field="*{file}" name="picture" id="pictures" class="form-control" multiple>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="container-fluid mb-4">
+            <div class="card-columns" style="column-count: 5">
+                <div class="card" th:each="picture : ${productDTO.pictures}">
+                    <div class="card-header">Picture</div>
+                    <img class="card-img-bottom" th:src="@{/picture(id=${picture.id})}"
+                         width="40%"/>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card mb-4">
+        </div>
+    </div>
+</div>
+<th:block th:replace="fragments :: scripts"></th:block>
+
+</body>
+</html>
