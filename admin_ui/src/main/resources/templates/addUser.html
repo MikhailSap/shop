@@ -1,0 +1,48 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>index</title>
+    <th:block th:replace="fragments :: head"></th:block>
+</head>
+<body class="bg-light">
+
+<nav th:replace="fragments :: nav"></nav>
+
+<div class="d-flex">
+
+    <div th:replace="fragments :: sidebar"></div>
+
+    <div class="content p-4">
+        <h2 class="mb-4">Add User</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                To add a user, enter username and password in the form below and select one or more roles.            </div>
+            <div class="card-body">
+                <form th:action="@{/addUser}" th:object="${user}" method="post">
+                    <div class="form-group">
+                        <label for="name">Login</label>
+                        <input type="text" th:field="*{name}" name="name" id="name" class="form-control"  placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" th:field="*{password}" name="password" id="password" class="form-control"  placeholder="Enter password">
+                    </div>
+                    <div class="form-group">
+                        <div th:each="role : ${roles}">
+                            <input type="checkbox" th:id="${role.id}" th:value="${role.id}" th:field="*{roles}"/>
+                            <label th:for="${role.id}" th:text="${role.name}"></label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="fragments :: scripts"></th:block>
+
+</body>
+</html>
+
