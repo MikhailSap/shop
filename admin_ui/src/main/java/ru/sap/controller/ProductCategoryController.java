@@ -1,14 +1,11 @@
 package ru.sap.controller;
 
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.sap.database.model.ProductCategory;
-import ru.sap.service.ProductCategoryServiceImpl;
-
-import java.util.Optional;
+import ru.sap.shop_common.service.ProductCategoryServiceImpl;
 
 @Controller
 public class ProductCategoryController {

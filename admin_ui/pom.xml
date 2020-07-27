@@ -20,6 +20,11 @@
     <dependencies>
         <dependency>
             <groupId>ru.sap</groupId>
+            <artifactId>shop_common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.sap</groupId>
             <artifactId>database</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
