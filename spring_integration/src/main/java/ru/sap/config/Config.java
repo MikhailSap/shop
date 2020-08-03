@@ -9,10 +9,12 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.core.MessageSource;
+import org.springframework.integration.dsl.ConsumerEndpointSpec;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.file.FileReadingMessageSource;
+import org.springframework.integration.file.transformer.FileToStringTransformer;
 import org.springframework.integration.jpa.dsl.Jpa;
 import org.springframework.integration.jpa.support.PersistMode;
 import ru.sap.database.model.Product;
@@ -20,9 +22,6 @@ import ru.sap.shop_common.service.ProductService;
 
 import javax.persistence.EntityManagerFactory;
 import java.io.File;
-import java.io.FileReader;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Configuration
@@ -80,30 +79,18 @@ public class Config {
     public IntegrationFlow integrationFlow() throws Exception{
         return IntegrationFlows.from(source(), conf -> conf.poller(Pollers.fixedDelay(2000)))
                 .filter(msg -> ((File) msg).getName().endsWith(".csv"))
-                .transform(msg -> {
-                    CSVReader reader;
-                    List<Product> productList = null;
-                    try {
-                        reader = new CSVReader(new FileReader((File)msg));
-                        productList = reader.readAll()
-                                .stream()
-                                .filter(strings -> strings.length == 2)
-                                .skip(1)
-                                .map(strings -> {
-                                    Product product = productService.getProductByName(strings[0]);
-                                    product.setPrice(Integer.parseInt(strings[1]));
-                                    return product;
-                                })
-                                .collect(Collectors.toList());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                  return productList;
+                .transform(new FileToStringTransformer())
+                .split(s -> s.delimiters("\n"))
+                .<String, Product>transform(s -> {
+                    String[] strings = s.split(";");
+                    Product product = productService.getProductByName(strings[0]);
+                    product.setPrice(Integer.parseInt(strings[1]));
+                    return product;
                 })
                 .handle(Jpa.outboundAdapter(this.entityManagerFactory)
                         .entityClass(Product.class)
                         .persistMode(PersistMode.PERSIST),
-                e -> e.transactional())
+                        ConsumerEndpointSpec::transactional)
                 .get();
     }
 }
