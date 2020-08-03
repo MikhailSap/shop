@@ -5,31 +5,45 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-
-    <changeSet id="3" author="mikhail">
+    <changeSet id="6" author="mikhail">
         <sqlFile dbms="postgresql"
-                 path="01-create_user_role_tables.sql"
+                 path="01-add_picture_brand_id_columns_in_products_table.sql"
                  relativeToChangelogFile="true"
                  splitStatements="true"
                  stripComments="true"/>
         <rollback>
             <sqlFile dbms="postgresql"
-                     path="01-drop_user_role_tables.sql"
+                     path="02-drop_picture_brand_id_columns_in_products_table.sql"
                      relativeToChangelogFile="true"
                      splitStatements="true"
                      stripComments="true"/>
         </rollback>
     </changeSet>
 
-    <changeSet id="4" author="mikhail">
+    <changeSet id="7" author="mikhail">
         <sqlFile dbms="postgresql"
-                 path="01-create_product_category_tables.sql"
+                 path="01-create_brands_table.sql"
                  relativeToChangelogFile="true"
                  splitStatements="true"
                  stripComments="true"/>
         <rollback>
             <sqlFile dbms="postgresql"
-                     path="01-drop_product_category_tables.sql"
+                     path="02-drop_brands_table.sql"
+                     relativeToChangelogFile="true"
+                     splitStatements="true"
+                     stripComments="true"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="8" author="mikhail">
+        <sqlFile dbms="postgresql"
+                 path="01-create_picture_table.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>
+            <sqlFile dbms="postgresql"
+                     path="02-drop_picture_table.sql"
                      relativeToChangelogFile="true"
                      splitStatements="true"
                      stripComments="true"/>
@@ -37,14 +51,19 @@
     </changeSet>
 
 
-    <changeSet id="5" author="mikhail">
+    <changeSet id="9" author="mikhail">
         <sqlFile dbms="postgresql"
-                 path="01-insert_default_user_role.sql"
+                 path="01-create_product_picture_table.sql"
                  relativeToChangelogFile="true"
                  splitStatements="true"
                  stripComments="true"/>
-        <rollback/>
+        <rollback>
+            <sqlFile dbms="postgresql"
+                     path="02-drop_product_picture_table.sql"
+                     relativeToChangelogFile="true"
+                     splitStatements="true"
+                     stripComments="true"/>
+        </rollback>
     </changeSet>
-
 
 </databaseChangeLog>

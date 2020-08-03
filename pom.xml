@@ -21,6 +21,7 @@
         <module>shop_common</module>
         <module>shop_ui</module>
         <module>admin_ui</module>
+        <module>spring_integration</module>
     </modules>
 
 

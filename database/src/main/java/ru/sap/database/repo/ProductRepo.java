@@ -13,4 +13,5 @@ public interface ProductRepo extends JpaRepository<Product, Long>, JpaSpecificat
 //    Page<Product> findByPriceBetween(Integer min, Integer max, Pageable pageable);
 //
 //    Page<Product> findByNameLike(String partOfName, Pageable pageable);
+    Product findByName(String name);
 }

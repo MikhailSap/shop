@@ -10,7 +10,11 @@ public interface ProductService {
 
     void save(ProductDTO product);
 
+    void save(Product product);
+
     ProductDTO getProductById(Long id);
+
+    Product getProductByName(String name);
 
     List<ProductDTO> findAll();
 

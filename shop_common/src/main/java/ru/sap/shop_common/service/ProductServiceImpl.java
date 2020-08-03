@@ -6,13 +6,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import ru.sap.database.model.Brand;
 import ru.sap.database.model.Picture;
 import ru.sap.database.model.Product;
 
 import ru.sap.database.repo.ProductRepo;
 import ru.sap.shop_common.dto.ProductDTO;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepo productRepo;
     private ModelMapper modelMapper;
 //    @Value("${imgDir}")
-//    private String directory;
+//    private String picDirectory;
     
     public ProductServiceImpl(ProductRepo productRepo, ModelMapper modelMapper) {
         this.productRepo = productRepo;
@@ -33,27 +38,32 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public void save(ProductDTO productDTO) {
-//        String rootPath = new File("").getAbsolutePath();
-//        String directoryPath = rootPath + directory + productDTO.getName();
-//        String fullPath = directory + "/" + productDTO.getFile()[0].getOriginalFilename();
-//        String relativePath = "/img/" + productDTO.getName() + "/" + productDTO.getFile()[0].getOriginalFilename();
+//        String directoryPath = picDirectory + productDTO.getName();
+//        String fullPath = directoryPath + "/" + productDTO.getFile()[0].getOriginalFilename();
 //        Path picture = Paths.get(fullPath);
+//        //"/img/" + productDTO.getName() + "/" + productDTO.getFile()[0].getOriginalFilename();
+//
 //        try {
+//            String relativePath = picture.toRealPath().toString();
 //            Files.createDirectory(Paths.get(directoryPath));
 //            Files.createFile(picture);
 //            Files.write(picture, productDTO.getFile()[0].getBytes());
 //
+//            //Product product = new Product();
+//
+//            modelMapper.addMappings(new PropertyMap<ProductDTO, Product>() {
+//                @Override
+//                protected void configure() {
+//                    map().setPicture(relativePath);
+//                }
+//            });
+//
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-//
-//        Product product = new Product();
-//        modelMapper.addMappings(new PropertyMap<ProductDTO, Product>() {
-//            @Override
-//            protected void configure() {
-//                map().setPicture(relativePath);
-//            }
-//        });
+
+
+
 
         Product product = new Product();
         modelMapper.addMappings(new PropertyMap<ProductDTO, Product>() {
@@ -78,6 +88,16 @@ public class ProductServiceImpl implements ProductService {
             }
         });
         modelMapper.map(productDTO, product);
+//        Brand brand = new Brand();
+//        brand.setId(6l);
+//        brand.setName("Sapos");
+//        product.setBrand(brand);
+        //System.out.println(product.getBrand().getName() + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        productRepo.save(product);
+    }
+
+    @Override
+    public void save(Product product) {
         productRepo.save(product);
     }
 
@@ -85,6 +105,11 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public ProductDTO getProductById(Long id) {
         return new ProductDTO(productRepo.findById(id).get());
+    }
+
+    @Override
+    public Product getProductByName(String name) {
+        return productRepo.findByName(name);
     }
 
     @Override

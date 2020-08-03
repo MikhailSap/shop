@@ -1,10 +1,12 @@
 package ru.sap.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import ru.sap.shop_common.dto.ProductDTO;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +21,24 @@ public class CartServiceImpl implements CartService {
         this.lineItems = new ArrayList<>();
     }
 
+//    @Override
+//    public void setQty(Integer lineItemId, Integer qty) {
+//        lineItems.get(lineItemId).setQuantity(qty);
+//    }
+
     @Override
-    public void setQty(Integer lineItemId, Integer qty) {
-        lineItems.get(lineItemId).setQuantity(qty);
+    public void setQty(List<Integer> qtys) {
+        for (int i = 0; i < lineItems.size(); i++) {
+            lineItems.get(i).setQuantity(qtys.get(i));
+        }
     }
 
     public void addLineItem(ProductDTO product) {
         LineItem lineItem = new LineItem(lineItems.size(), product, 1);
         lineItems.add(lineItem);
+        for (LineItem lineItem1 : lineItems) {
+            System.out.println(lineItem.getProduct().getName()+">>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        }
     }
 
     public void removeLineItem(Integer id) {
@@ -44,5 +56,12 @@ public class CartServiceImpl implements CartService {
 
     public List<LineItem> getLineItems() {
         return lineItems;
+    }
+
+    @JsonIgnore
+    public BigDecimal getTotal() {
+        return lineItems.stream()
+                 .map(LineItem::getSubTotal)
+                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

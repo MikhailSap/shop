@@ -132,6 +132,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shop__cart__table">
+                        <form name="data" th:action="@{/shop-cart/setQty}" th:object="${cartData}" method="post">
                         <table>
                             <thead>
                                 <tr>
@@ -143,7 +144,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="lineItem : ${lineItems}">
+                                <tr th:each="lineItem, itemStat : ${cartData.lineItems}">
                                     <td class="cart__product__item">
                                         <img th:src="@{/picture(id=${lineItem.product.pictures[0].id})}" alt="">
                                         <div class="cart__product__item__title">
@@ -159,24 +160,21 @@
                                     </td>
                                     <td class="cart__price" th:text="${lineItem.product.price}">$ 150.0</td>
                                     <td class="cart__quantity">
-                                            <form name="myform" th:action="@{/shop-cart/setQty}" th:method="post">
-                                                <input type="hidden" name="id" th:value="${lineItem.id}" />
-                                                <div class="pro-qty">
-                                                    <input type="text" name="qty" th:value="${lineItem.quantity}">
-                                                </div>
-                                                <div class="cart__btn">
-                                                    <button type="submit" value="update">update</button>
-                                                </div>
-                                            </form>
-
-
+                                        <div class="pro-qty" >
+                                            <input type="text" th:field="*{qtys[__${itemStat.index}__]}">
+                                        </div>
                                     </td>
                                     <td class="cart__total" th:text="${lineItem.getSubTotal()}">$ 300.0</td>
+
                                     <td class="cart__close"><a th:href="@{/shop-cart/delete(id=${lineItem.id})}"><span class="icon_close"></span></a>
+<!--                                        <form name="delete" th:action="@{/shop-cart/delete(id=${lineItem.id})}" th:method="delete">-->
+<!--                                            <button type="submit"><span class="icon_close"></span></button>-->
+<!--                                        </form>-->
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -188,7 +186,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="cart__btn update__btn">
-                        <a href="#"><span class="icon_loading"></span> Update cart</a>
+                        <a onclick="FormSubmit()"><span class="icon_loading"></span> Update cart</a>
                     </div>
                 </div>
             </div>
@@ -206,8 +204,7 @@
                     <div class="cart__total__procced">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Subtotal <span>$ 750.0</span></li>
-                            <li>Total <span>$ 750.0</span></li>
+                            <li>Total <span th:text="${total}">$ 750.0</span></li>
                         </ul>
                         <a href="#" class="primary-btn">Proceed to checkout</a>
                     </div>
@@ -368,8 +365,12 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/jquery.nicescroll.min.js"></script>
     <script src="js/main.js"></script>
-    <script type="text/javascript">
-        document.myform.submit();
+
+    <script>
+        function FormSubmit()
+        {
+           document.data.submit();
+        }
     </script>
 </body>
 
