@@ -84,12 +84,13 @@ public class Config {
                 .<String, Product>transform(s -> {
                     String[] strings = s.split(";");
                     Product product = productService.getProductByName(strings[0]);
+                    //product.setName(strings[0]);
                     product.setPrice(Integer.parseInt(strings[1]));
                     return product;
                 })
                 .handle(Jpa.outboundAdapter(this.entityManagerFactory)
                         .entityClass(Product.class)
-                        .persistMode(PersistMode.PERSIST),
+                        .persistMode(PersistMode.MERGE),
                         ConsumerEndpointSpec::transactional)
                 .get();
     }
