@@ -1,0 +1,64 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Category table</title>
+    <th:block th:replace="fragments :: head"></th:block>
+</head>
+<body class="bg-light">
+
+<nav th:replace="fragments :: nav"></nav>
+
+<div class="d-flex">
+
+    <div th:replace="fragments :: sidebar"></div>
+
+    <div class="content p-4">
+        <h2 class="mb-4">Category list</h2>
+
+        <div class="card mb-4">
+
+            <div class="card-body">
+                <form class="form-group" th:action="@{/newCategory}">
+                    <button type="submit" class="btn btn-primary">Create new</button>
+                </form>
+
+                <table id="categories" class="table table-hover" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th class="actions">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="category : ${categories}">
+                        <td th:text="${category.id}"></td>
+                        <td th:text="${category.name}"></td>
+                        <td>
+                        <a th:href="@{/editCategory(id=${category.id})}" class="btn btn-icon btn-pill btn-primary" data-toggle="tooltip" title="Edit">
+                            <i class="fa fa-fw fa-edit"></i>
+                        </a>
+                        <form th:action="@{/deleteCategory(id=${category.id})}" th:method="delete" class="d-inline">
+                            <button class="btn btn-icon btn-pill btn-danger" data-toggle="tooltip" title="Delete">
+                                <i class="fa fa-fw fa-trash"></i>
+                            </button>
+                        </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="fragments :: scripts"></th:block>
+<script>
+    $(document).ready(function () {
+        $('#categories').DataTable();
+    });
+</script>
+
+</body>
+</html>

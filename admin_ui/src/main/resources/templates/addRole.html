@@ -1,0 +1,40 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Create role</title>
+    <th:block th:replace="fragments :: head"></th:block>
+</head>
+<body class="bg-light">
+
+<nav th:replace="fragments :: nav">
+</nav>
+
+<div class="d-flex">
+
+    <div th:replace="fragments :: sidebar"></div>
+
+    <div class="content p-4">
+        <h2 class="mb-4">Add Role</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <form th:action="@{addRole}" th:object="${role}" method="post">
+                    <div class="form-group">
+                        <label for="name">Role name</label>
+                        <input type="text" th:field="*{name}" name="name" id="name" class="form-control"  placeholder="Enter role name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+        </div>
+    </div>
+
+
+</div>
+<th:block th:replace="fragments :: scripts"></th:block>
+
+</body>
+</html>
