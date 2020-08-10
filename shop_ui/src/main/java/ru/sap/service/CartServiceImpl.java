@@ -21,11 +21,6 @@ public class CartServiceImpl implements CartService {
         this.lineItems = new ArrayList<>();
     }
 
-//    @Override
-//    public void setQty(Integer lineItemId, Integer qty) {
-//        lineItems.get(lineItemId).setQuantity(qty);
-//    }
-
     @Override
     public void setQty(List<Integer> qtys) {
         for (int i = 0; i < lineItems.size(); i++) {
@@ -36,9 +31,6 @@ public class CartServiceImpl implements CartService {
     public void addLineItem(ProductDTO product) {
         LineItem lineItem = new LineItem(lineItems.size(), product, 1);
         lineItems.add(lineItem);
-        for (LineItem lineItem1 : lineItems) {
-            System.out.println(lineItem.getProduct().getName()+">>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        }
     }
 
     public void removeLineItem(Integer id) {

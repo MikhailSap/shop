@@ -18,7 +18,7 @@ import org.springframework.integration.file.transformer.FileToStringTransformer;
 import org.springframework.integration.jpa.dsl.Jpa;
 import org.springframework.integration.jpa.support.PersistMode;
 import ru.sap.database.model.Product;
-import ru.sap.shop_common.service.ProductService;
+import ru.sap.service.ProductService;
 
 import javax.persistence.EntityManagerFactory;
 import java.io.File;
@@ -84,7 +84,6 @@ public class Config {
                 .<String, Product>transform(s -> {
                     String[] strings = s.split(";");
                     Product product = productService.getProductByName(strings[0]);
-                    //product.setName(strings[0]);
                     product.setPrice(Integer.parseInt(strings[1]));
                     return product;
                 })

@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CartData implements Serializable {
+public class CartData {
     @JsonIgnore
     List<LineItem> lineItems;
     @JsonIgnore

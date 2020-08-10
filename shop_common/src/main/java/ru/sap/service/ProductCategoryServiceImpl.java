@@ -1,4 +1,4 @@
-package ru.sap.shop_common.service;
+package ru.sap.service;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Component
-public class ProductCategoryServiceImpl implements ProductCategoryService{
+public class ProductCategoryServiceImpl implements ProductCategoryService {
     private ProductCategoryRepo productCatigoryRepo;
 
     public ProductCategoryServiceImpl(ProductCategoryRepo productCatigoryRepo) {

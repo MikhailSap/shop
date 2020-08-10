@@ -1,4 +1,4 @@
-package ru.sap.shop_common.service;
+package ru.sap.service;
 
 import ru.sap.database.model.Picture;
 

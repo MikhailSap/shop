@@ -1,4 +1,4 @@
-package ru.sap.shop_common.dto;
+package ru.sap.dto;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

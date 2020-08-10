@@ -1,4 +1,4 @@
-package ru.sap.shop_common.config;
+package ru.sap.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

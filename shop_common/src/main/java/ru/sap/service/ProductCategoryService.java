@@ -1,8 +1,5 @@
-package ru.sap.shop_common.service;
+package ru.sap.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import ru.sap.database.model.Product;
 import ru.sap.database.model.ProductCategory;
 
 import java.util.List;

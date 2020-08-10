@@ -1,7 +1,7 @@
-package ru.sap.shop_common.service;
+package ru.sap.service;
 
 import ru.sap.database.model.Product;
-import ru.sap.shop_common.dto.ProductDTO;
+import ru.sap.dto.ProductDTO;
 
 import java.util.List;
 

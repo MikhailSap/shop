@@ -1,8 +1,6 @@
-package ru.sap.shop_common.dto;
+package ru.sap.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

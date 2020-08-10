@@ -1,4 +1,4 @@
-package ru.sap.shop_common.service;
+package ru.sap.service;
 
 import org.springframework.stereotype.Service;
 import ru.sap.database.model.Picture;
@@ -7,7 +7,7 @@ import ru.sap.database.repo.PictureRepo;
 import java.util.Optional;
 
 @Service
-public class PictureServiceImpl implements PictureService{
+public class PictureServiceImpl implements PictureService {
     private PictureRepo pictureRepo;
 
     public PictureServiceImpl(PictureRepo pictureRepo) {

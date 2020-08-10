@@ -1,4 +1,4 @@
-package ru.sap.shop_common.controller;
+package ru.sap.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.sap.shop_common.dto.ProductDTO;
-import ru.sap.shop_common.service.ProductCategoryService;
-import ru.sap.shop_common.service.ProductService;
-
+import ru.sap.dto.ProductDTO;
+import ru.sap.service.ProductCategoryService;
+import ru.sap.service.ProductService;
 
 import javax.validation.Valid;
 

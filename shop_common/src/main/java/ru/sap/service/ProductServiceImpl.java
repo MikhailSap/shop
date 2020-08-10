@@ -1,23 +1,16 @@
-package ru.sap.shop_common.service;
+package ru.sap.service;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import ru.sap.database.model.Brand;
 import ru.sap.database.model.Picture;
 import ru.sap.database.model.Product;
-
 import ru.sap.database.repo.ProductRepo;
-import ru.sap.shop_common.dto.ProductDTO;
+import ru.sap.dto.ProductDTO;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,4 +1,4 @@
-package ru.sap.shop_ui;
+package ru.sap;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

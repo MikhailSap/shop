@@ -1,12 +1,11 @@
-package ru.sap.shop_common.controller;
+package ru.sap.controller;
 
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.sap.database.model.Picture;
-import ru.sap.shop_common.service.PictureService;
-
+import ru.sap.service.PictureService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
